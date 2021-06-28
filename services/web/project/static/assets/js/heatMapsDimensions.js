@@ -7,7 +7,7 @@ function getFakeData(){
     for(let i = 0; i < 40; i++){
         
         data.studyCases.push({
-            name:`Case ${i+1}`,
+            name:`Dimension ${i+1}`,
             metric:Math.floor(Math.random() * 101),
             values:[]
         })
@@ -20,17 +20,37 @@ function getFakeData(){
     return data
 }
 
+// function rearengeData(cases) {
+
+//     let data = {
+//         studyCases: []
+//     };
+
+//     cases.forEach((i) => {
+
+//         data.studyCases.push({
+//             name:`Case ${i[0].case_id}`,
+//             metric:Math.floor(Math.random() * 101),
+//             values:[]
+//         })
+        
+//         i.forEach((value) => {
+//             data.studyCases[i[0].case_id].values.push(value.Loss_mae)
+//         });
+//     });
+
+//     return data
+// }
+
 export function build() {
 
     d3.select('#study_cases_container svg')
     .attr('width', '100%')
-    .attr('height', '150%')
+    .attr('height', '250%')
 
     let g = d3.select('#study_cases_container svg')
-    
-    let fakeData = getFakeData()
 
-    console.log(fakeData)
+    let fakeData = getFakeData()
     
     let maxWidth = g.node().getBoundingClientRect().width
     let maxHeight = g.node().getBoundingClientRect().height

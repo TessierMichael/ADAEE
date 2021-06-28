@@ -2,6 +2,10 @@ from flask import render_template, request
 from project import app
 from jinja2 import TemplateNotFound
 
+# from project.forms import Case_Study
+
+# import numpy as np
+
 @app.route("/")
 def index():
     return render_template('index.html', segment='index')
@@ -25,6 +29,18 @@ def route_template(template):
     
     except:
         return render_template('page-500.html'), 500
+
+# def get_data():
+#     cases = Case_Study.query.all()
+#     result = [[] for i in range(2)]
+#     for case in cases:
+#         result[case.case_id].append({ "case_id": case.case_id,
+#                                         "index": case.index,
+#                                         "Loss_mae": (case.Loss_mae if not np.isnan(case.Loss_mae) else 0),
+#                                         "Threshold": (case.Threshold if not np.isnan(case.Threshold) else 0),
+#                                         "pointType": case.pointType
+#                                     })
+#     return result
 
 # Helper - Extract current page name from request 
 def get_segment( request ): 

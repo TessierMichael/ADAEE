@@ -7,6 +7,8 @@
 
 {% block content %}
 
+<meta id="mydata" data-cases="{{mydata}}"></meta>
+
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 
 <div class="container-fluid min-vh-100">
@@ -32,13 +34,13 @@
                 <div class="card border-light shadow-sm">
                     <div class="card-header d-sm-flex flex-row align-items-center flex-0">
                         <div class="d-block mb-1">
-                            <div class="h2 fw-normal mb-2">Line Graphs</div>
+                            <div class="h2 fw-normal mb-2">Scatter Plots</div>
                         </div>
                     </div>
                     <div class="card-body p-4">
                         <div class="row overflow-auto min-vh-100">
                             <div id="line_graphs_container" class="col-12">
-                                <svg class="d-flex"></svg>
+                                <svg id="line-graph-svg" class="d-flex"></svg>
                             </div>
                         </div>
                     </div>
@@ -53,16 +55,16 @@
                                     <h2 class="h2">Highlight Points</h2>
                                 </div>
                                 <div class="col-2 align-items-center">
-                                    <button class="btn btn-outline-danger" type="button">True Positives</button>
+                                    <button id="TP-btn" class="btn btn-outline-danger" type="button">True Positives</button>
                                 </div>
                                 <div class="col-2 align-items-center">
-                                    <button class="btn btn-outline-danger" type="button">False Positives</button>
+                                    <button id="fP-btn" class="btn btn-outline-danger" type="button">False Positives</button>
                                 </div>
                                 <div class="col-2 align-items-center">
-                                    <button class="btn btn-outline-danger" type="button">True Negatives</button>
+                                    <button id="TN-btn" class="btn btn-outline-danger" type="button">True Negatives</button>
                                 </div>
                                 <div class="col-2 align-items-center">
-                                    <button class="btn btn-outline-danger" type="button">False Negatives</button>
+                                    <button id="FN-btn" class="btn btn-outline-danger" type="button">False Negatives</button>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +78,9 @@
                             <div class="row d-block align-items-center">
                                 <div class="col-12">
                                     <h2 class="h2">Aggregated Metric</h2>
-                                    <div id="aggregated_metric_container" class="d-block align-items-center"></div>
+                                    <div id="aggregated_metric_container" class="d-block align-items-center">
+                                        <svg></svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>

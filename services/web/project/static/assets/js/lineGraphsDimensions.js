@@ -6,22 +6,46 @@ function getFakeData(){
     
     for(let i = 0; i < 40; i ++){
         data.graphs.push({
-            name:`Case ${i+1}`,
+            name:`Dimension ${i+1}`,
             metric:Math.floor(Math.random() * 101),
             points:[]
         })
         for(let j = 0; j < 100; j++){
-            data.graphs[i].points.push([Math.random()*101,Math.random()*101]);
+            data.graphs[i].points.push({"position": [Math.random()*101,Math.random()*101],
+                                        "type": ['TN', 'TP', 'FN', 'FP'][Math.floor(Math.random()*4)]});
         }
     }
     
     return data
 }
+
+// function rearengeData(cases) {
+
+//     let data = {
+//         graphs: []
+//     };
+
+//     cases.forEach((i) => {
+
+//         data.graphs.push({
+//             name:`Case ${i[0].case_id}`,
+//             metric:Math.floor(Math.random() * 101),
+//             points:[]
+//         })
+        
+//         i.forEach((value) => {
+//             data.graphs[i[0].case_id].points.push(value.Loss_mae)
+//         });
+//     });
+
+//     return data
+// }
+
 let globalXAxis;
 let globalX;
 let globalG;
 let globalBrush;
-export function build () {
+export function build (button) {
     //TODO these two variables are arbitrary to set the graphs to their proper size, find a way to set it 
     //Using maxHeight and other variables
     let windowHeight = [0,7500];
@@ -105,10 +129,10 @@ export function build () {
     .enter()
     .append('circle')
     .attr('class','map')
-    .attr("cx", function (d) { return x(d[0]); } )
-    .attr("cy", function (d) { return y(d[1]); } )
+    .attr("cx", function (d) { return x(d.position[0]); } )
+    .attr("cy", function (d) { return y(d.position[1]); } )
     .attr("r", 3)
-    .style("fill", "#440154ff" )
+    .style("fill", function(d) {(button==d.type) ? "red" : "#440154ff"})
     .style("opacity", 0.5)
     /*let x = d3.scaleLinear()
     .domain([0, 100])

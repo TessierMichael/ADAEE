@@ -15,10 +15,16 @@
             <div class="card border-light shadow-sm">
                 <div class="card-header d-sm-flex flex-row align-items-center flex-0">
                     <div class="d-block mb-1">
-                        <div class="h2 fw-normal mb-2">Study Cases</div>
+                        <div class="h2 fw-normal mb-2">Dimensions</div>
                     </div>
                 </div>
                 <div class="card-body p-4">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Case Study 1</option>
+                            <option value="1">Case Study 1</option>
+                            <option value="2">Case Study 2</option>
+                            <option value="3">Case Study 3</option>
+                        </select>
                     <div class="row overflow-auto min-vh-100">
                         <div id="study_cases_container" class="col-12">
                             <svg class="d-flex"></svg>
@@ -32,7 +38,7 @@
                 <div class="card border-light shadow-sm">
                     <div class="card-header d-sm-flex flex-row align-items-center flex-0">
                         <div class="d-block mb-1">
-                            <div class="h2 fw-normal mb-2">Line Graphs</div>
+                            <div class="h2 fw-normal mb-2">Scatter Plots</div>
                         </div>
                     </div>
                     <div class="card-body p-4">
@@ -75,8 +81,10 @@
                         <div class="card-body">
                             <div class="row d-block align-items-center">
                                 <div class="col-12">
-                                    <h2 class="h2">Aggregated Metric</h2>
-                                    <div id="aggregated_metric_container" class="d-block align-items-center"></div>
+                                    <h2 class="h2">Adaptive Metric</h2>
+                                    <div id="adaptive_metric_container" class="d-block align-items-center">
+                                        <svg></svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +109,7 @@
     </div>
 </div>
 
-<script type="module" src="/static/assets/js/global.js"></script>
+<script type="module" src="/static/assets/js/case.js"></script>
 
 {% endblock content %}
 

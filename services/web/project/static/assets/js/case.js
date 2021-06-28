@@ -1,6 +1,6 @@
-import * as heatMaps from './heatMapsCases.js'
-import * as lineGraphs from './lineGraphsCases.js'
-import * as metric from './aggregatedMetric.js'
+import * as heatMaps from './heatMapsDimensions.js'
+import * as lineGraphs from './lineGraphsDimensions.js'
+import * as metric from './adaptiveMetric.js'
 
 function build(){
     heatMaps.build()
