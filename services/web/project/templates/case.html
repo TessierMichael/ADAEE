@@ -1,0 +1,110 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+
+<div class="container-fluid min-vh-100">
+    <div class="row mt-4 mb-4 min-vh-100">
+        <div class="col-3 align-items-stretch">
+            <div class="card border-light shadow-sm">
+                <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+                    <div class="d-block mb-1">
+                        <div class="h2 fw-normal mb-2">Study Cases</div>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row overflow-auto min-vh-100">
+                        <div id="study_cases_container" class="col-12">
+                            <svg class="d-flex"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-9 align-items-stretch">
+            <div class="row min-vh-100">
+                <div class="card border-light shadow-sm">
+                    <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+                        <div class="d-block mb-1">
+                            <div class="h2 fw-normal mb-2">Line Graphs</div>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row overflow-auto min-vh-100">
+                            <div id="line_graphs_container" class="col-12">
+                                <svg class="d-flex"></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 justify-content-md-center">
+                <div class="col-12">
+                    <div class="card h-100 border-light shadow-sm">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3 align-items-center">
+                                    <h2 class="h2">Highlight Points</h2>
+                                </div>
+                                <div class="col-2 align-items-center">
+                                    <button class="btn btn-outline-danger" type="button">True Positives</button>
+                                </div>
+                                <div class="col-2 align-items-center">
+                                    <button class="btn btn-outline-danger" type="button">False Positives</button>
+                                </div>
+                                <div class="col-2 align-items-center">
+                                    <button class="btn btn-outline-danger" type="button">True Negatives</button>
+                                </div>
+                                <div class="col-2 align-items-center">
+                                    <button class="btn btn-outline-danger" type="button">False Negatives</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 justify-content-md-center">
+                <div class="col-4">
+                    <div class="card h-100 border-light shadow-sm">
+                        <div class="card-body">
+                            <div class="row d-block align-items-center">
+                                <div class="col-12">
+                                    <h2 class="h2">Aggregated Metric</h2>
+                                    <div id="aggregated_metric_container" class="d-block align-items-center"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="card h-100 border-light shadow-sm">
+                        <div class="card-body">
+                            <div class="row d-block align-items-center">
+                                <div class="col-12">
+                                    <div class="d-none d-sm-block">
+                                        <h2 class="h2">Equation</h2>
+                                        <h5 class="mb-1">$${WS(\delta, L_i)=\sum_{t\in L_i\cup\delta}\left|M(r^\delta(t))-M(r^{L_i}(t))\right|\times\left| r^\delta(t)-r^{L_i}(t) \right|}$$</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/static/assets/js/global.js"></script>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}{% endblock javascripts %}
