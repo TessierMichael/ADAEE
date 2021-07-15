@@ -1,56 +1,60 @@
-function getFakeData(){
+import { addGraph, removeGraph } from "./lineGraphs.js"
+
+let fakeData
+
+function rearrangeData(cases) {
     
     let data = {
         studyCases: []
     }
     
-    for(let i = 0; i < 20; i++){
-        
+    let algo = "Algo1"
+    // if (!d3.select('.algorithm svg').select('text').empty()) {
+    //     algo = d3.select('.algorithm svg').select('text').property('value')
+    // }
+    
+    let index = 0
+    cases.forEach((case_study) => {
+        let metric = (algo=="Algo1") ? case_study[0].Algo1_adaptiveMetric : case_study[0].Algo1_adaptiveMetric
         data.studyCases.push({
-            name:`Case ${i+1}`,
-            metric:Math.floor(Math.random() * 101),
-            values:[]
+            name:`Case ${index+1}`,
+            metric: metric, 
+            dataPoints:[]
         })
         
-        for (let j = 0; j < 24; j++){
-            data.studyCases[i].values.push(j/24)
-        }
-    }
+        case_study.forEach((point) => {
+            let pointValue = (algo=="Algo1") ? point.Algo1_loss_mae : point.Algo2_loss_mae
+            let pointType = (algo=="Algo1") ? point.Algo1_pointType : point.Algo2_pointType
+            data.studyCases[index].dataPoints.push({value: pointValue, type: pointType})
+        })
+        index = index+1
+    })
     
+    data.studyCases.forEach(element => {
+
+        let n = 50
+        
+        const res = [];
+        for (let i = 0; i < element.dataPoints.length;) {
+            let sum = 0;
+            for(let j = 0; j < n; j++){
+                sum += +element.dataPoints[i++].value || 0;
+            };
+            res.push(sum / n);
+        }
+        element.averagedValues = res
+    });
     return data
 }
 
-// function rearengeData(cases) {
-
-//     let data = {
-//         studyCases: []
-//     };
-
-//     cases.forEach((i) => {
-
-//         data.studyCases.push({
-//             name:`Case ${i[0].case_id}`,
-//             metric:Math.floor(Math.random() * 101),
-//             values:[]
-//         })
-        
-//         i.forEach((value) => {
-//             data.studyCases[i[0].case_id].values.push(value.Loss_mae)
-//         });
-//     });
-
-//     return data
-// }
-
-export function build() {
-
-    d3.select('#study_cases_container svg')
+export function build (cases) { 
+    d3.select('.heat-maps svg')
     .attr('width', '100%')
-    .attr('height', '100%')
-
-    let g = d3.select('#study_cases_container svg')
-
-    let fakeData = getFakeData()
+    .attr('height', '60%')
+    
+    let g = d3.select('.heat-maps svg')
+    
+    fakeData = rearrangeData(cases)
     
     let maxWidth = g.node().getBoundingClientRect().width
     let maxHeight = g.node().getBoundingClientRect().height
@@ -63,20 +67,35 @@ export function build() {
     
     let verticalScale = d3.scaleLinear()
     .domain([0, fakeData.studyCases.length])
-    .range([margin.top*maxHeight, maxHeight-margin.bottom*maxHeight])
+    .range([margin.top*maxHeight, maxHeight*0.6-margin.bottom*maxHeight])
     
     let horizontalScale = d3.scaleLinear()
-    .domain([0,fakeData.studyCases[0].values.length])
+    .domain([0,fakeData.studyCases[0].averagedValues.length])
     .range([margin.left*maxWidth,maxWidth-margin.right*maxWidth])
     
-    let colorScale = d3.scaleLinear()
-    .domain([0, 0.33, 0.66, 1])
-    .range(['blue', 'green', 'yellow', 'red'])
+    let minValue = 20
+    let maxValue = 0
 
-    let init = g.selectAll('g')
+    fakeData.studyCases.forEach(element => {
+        element.averagedValues.forEach(element => {
+            if(element < minValue){
+                minValue = element
+            }
+            if(element > maxValue){
+                maxValue = element
+            }
+        });
+    });
+
+    let colorScale = d3.scaleLinear()
+    .domain([minValue, minValue + (maxValue-minValue)/3,  minValue + (maxValue-minValue)/3 * 2, maxValue])
+    .range(['blue', 'green', 'yellow', 'red'])
+    
+    let init = g.selectAll('g.case')
     .data(fakeData.studyCases)
     .enter()
     .append('g')
+    .attr('class', 'case')
     
     init.append('text')
     .attr('class', 'name')
@@ -92,22 +111,23 @@ export function build() {
     
     init.append('circle')
     .attr('class', 'toggle')
+    .attr('number', (d,i) => d.number = i)
     .attr('cursor', 'pointer')
     
     init.selectAll('rect.map')
-    .data((d) => d.values)
+    .data((d) => d.averagedValues)
     .enter()
     .append('rect')
     .attr('class', 'map')
     .on("mouseover", handleMouseOver)
     .on("mouseout", handleMouseOut);
     
-    let groups = g.selectAll('g')
+    let groups = g.selectAll('g.case')
     groups.attr('transform', (d, i) => `translate(0 ${verticalScale(i)})`)
     
     let names = groups.selectAll('text.name')
     names.attr('x', maxWidth/2)
-    .attr('y', 0)
+    .attr('y', -5)
     .attr('text-anchor', 'middle')
     
     let metrics = groups.selectAll('text.metric')
@@ -115,12 +135,12 @@ export function build() {
     .attr('y', 10)
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
-
+    
     let switchWidth = margin.right*maxWidth * 0.60
     
     let left = maxWidth - margin.right*maxWidth/2 - switchWidth/2 + 10
     let right = maxWidth - margin.right*maxWidth/2 + switchWidth/2 - 10
-    
+
     let switches = groups.selectAll('rect.switch')
     switches.attr('width', switchWidth)
     .attr('height', 20)
@@ -142,7 +162,7 @@ export function build() {
     .on('click', function() { handleMouseClick(this, left, right) })
     
     let rects = groups.selectAll('rect.map')
-    rects.attr('width', maxWidth*(1-margin.left-margin.right)/24)
+    rects.attr('width', maxWidth*(1-margin.left-margin.right)/fakeData.studyCases[0].averagedValues.length)
     .attr('height', 20)
     .attr('x', (d, i) => horizontalScale(i))
     .attr('fill', (d) => colorScale(d))
@@ -161,6 +181,7 @@ function handleMouseOut(){
 }
 
 function handleMouseClick(g, left, right){
+
     d3.select(g.parentNode).select('.toggle')
     .transition()
     .duration(100)
@@ -170,13 +191,10 @@ function handleMouseClick(g, left, right){
         d3.select(g.parentNode).select('.switch')
         .attr('fill', d.on? 'silver' : 'black')
         d.on = !d.on
-
-        console.log(`${d.name} is ${d.on? 'on' : 'off'}`)
         if (d.on){
-            console.log("Calling linegraph build function for " + d.name)
-            addGraph(d.name)
+            let data = fakeData.studyCases[d.number]
+            addGraph(d.name,data)
         } else {
-            console.log("Calling linegraph remove function for " + d.name)
             removeGraph(d.name)
         }
         return result

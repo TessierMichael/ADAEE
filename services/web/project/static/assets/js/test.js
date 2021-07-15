@@ -1,5 +1,5 @@
 import * as lineGraphs from './lineGraphs.js'
-import * as heatMapsDimensions from './heatMapsDimensions.js'
+import * as heatMapsCases from './heatMapsCases.js'
 import * as highlightPoints from './highlightPoints.js'
 
 (function (d3) {
@@ -51,7 +51,7 @@ import * as highlightPoints from './highlightPoints.js'
         function build(){
             lineGraphs.build()
             highlightPoints.build()
-            heatMapsDimensions.build(cases)
+            heatMapsCases.build(cases)
         }
 
     }).catch(function(err) {

@@ -3,112 +3,92 @@
 {% block title %} Dashboard {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+    <link type="text/css" href="/static/assets/css/test.css" rel="stylesheet">
+{% endblock stylesheets %}
 
 {% block content %}
 
-<meta id="mydata" data-cases="{{mydata}}"></meta>
-
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 
-<div class="container-fluid min-vh-100">
-    <div class="row mt-4 mb-4 min-vh-100">
-        <div class="col-3 align-items-stretch">
-            <div class="card border-light shadow-sm">
-                <div class="card-header d-sm-flex flex-row align-items-center flex-0">
-                    <div class="d-block mb-1">
-                        <div class="h2 fw-normal mb-2">Study Cases</div>
-                    </div>
+<div class="container-fluid d-flex" style="min-height: 86vh">
+    <div class="row mt-4 mb-4 d-flex justify-content-start" style="flex: 1">
+         <div class="col-3">
+            <div class="card border-light shadow-sm h-100">
+                <div class="card-header">
+                    <div class="h2 fw-normal mb-2">Study Cases</div>
                 </div>
-                <div class="card-body p-4">
-                    <div class="row overflow-auto min-vh-100">
-                        <div id="study_cases_container" class="col-12">
-                            <svg class="d-flex"></svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-9 align-items-stretch">
-            <div class="row min-vh-100">
-                <div class="card border-light shadow-sm">
-                    <div class="card-header d-sm-flex flex-row align-items-center flex-0">
-                        <div class="d-block mb-1">
-                            <div class="h2 fw-normal mb-2">Scatter Plots</div>
-                        </div>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="row overflow-auto min-vh-100">
-                            <div id="line_graphs_container" class="col-12">
-                                <svg id="line-graph-svg" class="d-flex"></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-4 justify-content-md-center">
-                <div class="col-12">
-                    <div class="card h-100 border-light shadow-sm">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-3 align-items-center">
-                                    <h2 class="h2">Highlight Points</h2>
-                                </div>
-                                <div class="col-2 align-items-center">
-                                    <button id="TP-btn" class="btn btn-outline-danger" type="button">True Positives</button>
-                                </div>
-                                <div class="col-2 align-items-center">
-                                    <button id="fP-btn" class="btn btn-outline-danger" type="button">False Positives</button>
-                                </div>
-                                <div class="col-2 align-items-center">
-                                    <button id="TN-btn" class="btn btn-outline-danger" type="button">True Negatives</button>
-                                </div>
-                                <div class="col-2 align-items-center">
-                                    <button id="FN-btn" class="btn btn-outline-danger" type="button">False Negatives</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-4 justify-content-md-center">
-                <div class="col-4">
-                    <div class="card h-100 border-light shadow-sm">
-                        <div class="card-body">
-                            <div class="row d-block align-items-center">
-                                <div class="col-12">
-                                    <h2 class="h2">Aggregated Metric</h2>
-                                    <div id="aggregated_metric_container" class="d-block align-items-center">
-                                        <svg></svg>
+                <div class="card-body d-flex justify-content-center" style="flex: 1">
+                    <div class="col-12">
+                        <div class="row mb-1" style="height: 5%">
+                            <div class="col-12">
+                                <div class="dropdown">
+                                    <div class="btn-group me-2 mb-2 w-100">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Algorithm #1</option>
+                                            <!--<option value="1">Algorithm #1</option>-->
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row mt-3" style="height: 95%">
+                            <div class="heat-maps col-12">
+                                <svg></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+         <div class="col-9">
+            <div class="row" style="height: 65%">
+                <div class="line-graphs col-12">
+                    <svg class="h-100 w-100"></svg>
+                </div>
+            </div>
+            <div class="row mb-4" style="height: 8%">
+                <div class="col-12 h-100">
+                    <div class="card border-light shadow-sm h-100">
+                        <div class="highlight-points col-12">
+                            <svg></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="height: 25%">
+                <div class="col-4">
+                    <div class="card border-light shadow-sm h-100">
+                        <div class="card-header">
+                            <div class="mb-1">
+                                <div class="h2 fw-normal mb-2">Aggregated Metric</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="mt-2" style="font-size: 6em">66.33</h1>
                         </div>
                     </div>
                 </div>
                 <div class="col-8">
-                    <div class="card h-100 border-light shadow-sm">
-                        <div class="card-body">
-                            <div class="row d-block align-items-center">
-                                <div class="col-12">
-                                    <div class="d-none d-sm-block">
-                                        <h2 class="h2">Equation</h2>
-                                        <h5 class="mb-1">$${WS(\delta, L_i)=\sum_{t\in L_i\cup\delta}\left|M(r^\delta(t))-M(r^{L_i}(t))\right|\times\left| r^\delta(t)-r^{L_i}(t) \right|}$$</h5>
-                                    </div>
-                                </div>
+                    <div class="card border-light shadow-sm h-100">
+                        <div class="card-header">
+                            <div class="mb-1">
+                                <div class="h2 fw-normal mb-2">Metric Details</div>
                             </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 style="overflow-y: auto">$${\require{color}\color{black}\left( \frac{\left( 79 \cdot \color{red}\fbox{1} \color{black}\right) + \left( 62 \cdot \color{green}\fbox{1} \color{black}\right) + \left( 60 \cdot \color{blue}\fbox{1} \color{black}\right) + \left( 66 \cdot \color{orange}\fbox{1} \color{black}\right) + \left( 61 \cdot \color{purple}\fbox{1} \right) + \left( 64 \cdot \color{sienna}\fbox{1} \color{black}\right)}{ \color{red}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{green}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{blue}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{orange}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{purple}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{sienna}\fbox{1}} \color{black}\right)}= 66.33$$</h5>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+         </div>
     </div>
 </div>
 
-<script type="module" src="/static/assets/js/global.js"></script>
+<script type="module" src="/static/assets/js/test.js"></script>
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-
 {% block javascripts %}{% endblock javascripts %}

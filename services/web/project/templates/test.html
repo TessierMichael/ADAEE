@@ -16,40 +16,28 @@
          <div class="col-3">
             <div class="card border-light shadow-sm h-100">
                 <div class="card-header">
-                    <div class="h2 fw-normal mb-2">Input Data Dimensions</div>
+                    <div class="h2 fw-normal mb-2">Study Cases</div>
                 </div>
                 <div class="card-body d-flex justify-content-center" style="flex: 1">
                     <div class="col-12">
-                        <div class="row mb-3" style="height: 5%">
+                        <div class="row mb-1" style="height: 5%">
                             <div class="col-12">
                                 <div class="dropdown">
-                                    <div class="btn-group me-2 mb-2 w-100">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Algorithm #1</option>
-                                            <!--<option value="1">Algorithm #1</option>-->
-                                        </select>
+                                    <div class="btn-group me-2 mb-2">
+                                        <button type="button" class="btn btn-dark">Algorithm #1</button>
+                                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fas fa-angle-down dropdown-arrow"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Algorithm #1</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3" style="height: 5%">
-                            <div class="col-12">
-                                <div class="dropdown">
-                                    <div class="btn-group me-2 mb-2 w-100">
-                                        <select id="case-selector" class="dimension form-select"  aria-label="Default select example">
-                                            <!--<option selected>Case 1</option>
-                                            <option value="1">Case 2</option>
-                                            <option value="1">Case 3</option>
-                                            <option value="1">Case 4</option>
-                                            <option value="1">Case 5</option>
-                                            <option value="1">Case 6</option>-->
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" style="height: 85%">
-                            <div class="heat-maps col-12 overflow-auto">
+                        <div class="row mt-3" style="height: 95%">
+                            <div class="heat-maps col-12">
                                 <svg></svg>
                             </div>
                         </div>
@@ -77,11 +65,11 @@
                     <div class="card border-light shadow-sm h-100">
                         <div class="card-header">
                             <div class="mb-1">
-                                <div class="h2 fw-normal mb-2">Adaptive Metric</div>
+                                <div class="h2 fw-normal mb-2">Aggregated Metric</div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <h1 class="adaptive-metric mt-2" style="font-size: 6em"></h1>
+                            <h1 class="mt-2" style="font-size: 6em">66.33</h1>
                         </div>
                     </div>
                 </div>
@@ -92,9 +80,8 @@
                                 <div class="h2 fw-normal mb-2">Metric Details</div>
                             </div>
                         </div>
-                        <div class="card-body overflow-auto">
-                            <h5 class="metric-details-1"></h5>
-                            <!--<h5 class="metric-details-2"></h5>-->
+                        <div class="card-body">
+                            <h5 style="overflow-y: auto">$${\require{color}\color{black}\left( \frac{\left( 79 \cdot \color{red}\fbox{1} \color{black}\right) + \left( 62 \cdot \color{green}\fbox{1} \color{black}\right) + \left( 60 \cdot \color{blue}\fbox{1} \color{black}\right) + \left( 66 \cdot \color{orange}\fbox{1} \color{black}\right) + \left( 61 \cdot \color{purple}\fbox{1} \right) + \left( 64 \cdot \color{sienna}\fbox{1} \color{black}\right)}{ \color{red}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{green}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{blue}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{orange}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{purple}\fbox{1} \;\quad\, \color{black}+ \;\quad\, \color{sienna}\fbox{1}} \color{black}\right)}= 66.33$$</h5>
                         </div>
                     </div>
                 </div>
@@ -103,7 +90,7 @@
     </div>
 </div>
 
-<script type="module" src="/static/assets/js/case.js"></script>
+<script type="module" src="/static/assets/js/test.js"></script>
 
 {% endblock content %}
 
